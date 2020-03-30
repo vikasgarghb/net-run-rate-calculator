@@ -1,12 +1,8 @@
 {
   "compilerOptions": {
-    "alwaysStrict": true,
-    "declaration": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "inlineSourceMap": true,
-    "inlineSources": true,
     "lib": ["es2018"],
+    "moduleResolution": "node",
     "module": "commonjs",
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": true,
@@ -14,13 +10,12 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "noImplicitReturns": true,
-    "outDir": "build",
+    "outDir": "dist",
     "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
     "strictPropertyInitialization":false,
-    "target":"ES2018",
-    "typeRoots": ["./node_modules/@types"]
+    "target":"ES2018"
   },
-  "exclude": ["build", "cdk.out"]
+  "exclude": ["dist", "node_modules"]
 }

@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Template for net-run-rate-calculator state machine
+
+Globals:
+  Function:
+    Timeout: 3
+    Runtime: nodejs12.x
+    CodeUri: dist
+
+Resources:
+  CreateMatchesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: createMatchesHandler.handler
+
+  CalculateRunRateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: calculateRunRateHandler.handler
+
+  NetRunRateCalculatorStateMachine:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      StateMachineName: net-run-rate-calculator-state-machine
+      StateMachineType: STANDARD
+      DefinitionString: !Sub |-
+        {
+          "Comment": "State Maching to calculate net run rates for given teams.",
+          "StartAt": "CreateMatches",
+          "States": {
+            "CreateMatches": {
+              "Type": "Task",
+              "Resource": "${CreateMatchesFunction.Arn}",
+              "Next": "CalculateRunRate"
+            },
+            "CalculateRunRate": {
+              "Type": "Task",
+              "Resource": "${CalculateRunRateFunction.Arn}",
+              "End": true
+            }
+          }
+        }

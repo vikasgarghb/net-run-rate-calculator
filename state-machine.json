@@ -1,5 +1,5 @@
 {
-  "Comment": "State Maching to calculate net run rates for given teams.",
+  "Comment": "State Machine to calculate net run rates for given teams.",
   "StartAt": "CreateMatches",
   "States": {
     "CreateMatches": {
